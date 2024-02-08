@@ -17,8 +17,8 @@ setInterval(clock, 1000);
 function addJob() {
   let pName = "Process" + (processAll.length + 1);
   let aTime = clockcount;
-  // let bTime = Math.floor(Math.random() * 10 + 1);
-  let bTime = 5;
+  let bTime = Math.floor(Math.random() * 10 + 4);
+  // let bTime = 5;
   let wTime = 0;
   let newProcess = new Job(pName, aTime, bTime, wTime);
   process.push(newProcess);
@@ -56,21 +56,29 @@ function addJob() {
 }
 
 function closeJob() {
-  let runningProcesses = process.filter(
-    (p) => p.status.getStatus() === "running"
-  );
+  let runningProcess = null;
 
-  if (runningProcesses.length > 0) {
-    let currentProcess = runningProcesses[0];
-    let turnaroundTime = clockcount - currentProcess.aTime;
-    let newBurstTime =
-      currentProcess.getInitialBurstTime() - currentProcess.bTime;
-
-    currentProcess.setStatus("terminate");
-    if (!terminate.hasProcess(currentProcess)) {
-      terminate.addProcess(currentProcess, newBurstTime, turnaroundTime);
+  for (let i = 0; i < process.length; i++) {
+    if (process[i].status.getStatus() === "running") {
+      runningProcess = process[i];
+      break;
     }
-    controller.removeRunningProcess(currentProcess);
+  }
+
+  if (runningProcess) {
+    let turnaroundTime = clockcount - runningProcess.aTime;
+    let newBurstTime =
+      runningProcess.getInitialBurstTime() - runningProcess.bTime;
+
+    runningProcess.setStatus("terminate");
+    if (!terminate.hasProcess(runningProcess)) {
+      terminate.addProcess(runningProcess, newBurstTime, turnaroundTime);
+    }
+    const index = process.indexOf(runningProcess);
+    if (index !== -1) {
+      process.splice(index, 1); 
+    }
+    controller.removeRunningProcess(runningProcess);
     controller.calculateAvgwaitingTime(terminate);
     controller.calculateAvgTurnaround(terminate);
     updateTable();
@@ -79,6 +87,9 @@ function closeJob() {
     updateReadyQueueTable();
     terminated = true;
 
+    // หาตำแหน่งของ runningProcess และลบออกจากอาร์เรย์ process
+ 
+    console.log(process.length);
     setTimeout(() => {
       if (!readyQueue.isEmpty()) {
         let nextProcess = readyQueue.dequeue();
@@ -90,7 +101,7 @@ function closeJob() {
         runningTime(nextProcess);
       }
       setTimeout(() => {
-        process.shift();
+        // process.shift();
         updateTable();
         updateReadyQueueTable();
         updateTerminateTable();
@@ -168,7 +179,6 @@ function updateIOqueue() {
 }
 
 let interval;
-let nextProcess; // ตัวแปรนี้ให้ถูกเก็บไว้นอก scope ของ runningTime
 
 function runningTime(job) {
   interval = setInterval(() => {
@@ -199,10 +209,13 @@ function checkBtime(job) {
     controller.removeRunningProcess(job);
     controller.calculateAvgwaitingTime(terminate);
     controller.calculateAvgTurnaround(terminate);
+    const index = process.indexOf(job);
+    if (index !== -1) {
+      process.splice(index, 1); 
+    }
     updateController();
     updateReadyQueueTable();
     terminated = false;
-
     setTimeout(() => {
       if (!readyQueue.isEmpty()) {
         nextProcess = readyQueue.dequeue();
@@ -246,8 +259,7 @@ function addIo() {
         updateTable(nextProcess);
         updateReadyQueueTable();
       }
-      console.log(ioDevice.getIOQueue());
-      console.log(ioDevice.status.getStatusIO());
+      
       break;
     }
   }
@@ -261,6 +273,7 @@ function closeIo() {
     if (job && ioQueueItem.status.getStatusIO() === "running") {
       job.setStatus("running");
       process.push(job);
+      console.log(process);
       updateTable();
       ioDevice.dequeueProcess();
       updateIOqueue();
@@ -268,7 +281,7 @@ function closeIo() {
         setTimeout(() => {
           ioDevice.getIOQueue()[0].status.setStatusIO("running");
           updateIOqueue();
-        }, 500);
+        }, 200);
       }
     }
   } else {
@@ -277,7 +290,9 @@ function closeIo() {
     if (job && ioQueueItem.status.getStatusIO() === "running") {
       job.setStatus("ready");
       process.push(job);
+      console.log(process);
       readyQueue.enqueue(job);
+      readyQueue.sortQueueByBurstTime(job);
       updateTable();
       ioDevice.dequeueProcess();
       updateIOqueue();
@@ -285,7 +300,7 @@ function closeIo() {
         setTimeout(() => {
           ioDevice.getIOQueue()[0].status.setStatusIO("running");
           updateIOqueue();
-        }, 500);
+        }, 200);
       }
     }
   }
