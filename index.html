@@ -1,143 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" sizes="16x16" href="/img/1.jpg">
-    <title>Shortest-Job-First </title>
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/1.jpg" />
+    <title>Os: SJF</title>
+  </head>
 
-<body>
-    <div class="top">SJF Non-preemtive Scheduling <ul id="clockDisplay1">Clock: 0</ul></div>
+  <body>
+    <div class="top">
+      <p style="font-size: 30px; font-weight: bold">
+        SJF Non-preemtive Scheduling
+      </p>
+      <ul id="clockDisplayList">
+        Clock: 0
+      </ul>
+    </div>
     <div class="head-a">
-        <div class="left">
-            <div class="tt">
-            <div class="box-a">
-                <div class="box-aa">
-                <h3>PCB</h3>
-                    <div class="btn">
-                    <button type="button" class="btn-a" onclick="addJob()">Add process</button>
-                    <button type="button" class="btn-b" onclick="closeJob()">Terminate</button>
-                    <button type="button" class="btn-c" onclick="reset()">Reset</button>
-                    </div>
-                </div>
+      <div class="left">
+        <div class="tt">
+          <div class="box-a">
+            <div class="box-aa">
+              <h3>PCB</h3>
+              <div class="btn">
+                <button
+                  type="button"
+                  class="btn-a"
+                  onclick="controller.addProcess()"
+                >
+                  Add process
+                </button>
+                <button
+                  type="button"
+                  class="btn-b"
+                  onclick="controller.closeProcess()"
+                >
+                  Terminate
+                </button>
+                <button type="button" class="btn-c" onclick="reset()">
+                  Reset
+                </button>
+              </div>
+            </div>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Process name</th>
+                <th>Arrival Time</th>
+                <th>Burst Time</th>
+                <th>Waitting Time</th>
+                <th>Status Process</th>
+              </tr>
+            </thead>
+            <tbody id="addjob"></tbody>
+            <!-- ปิด tag tbody ให้ถูกต้อง -->
+          </table>
+        </div>
+        <div class="lower-box">
+          <div class="tt-a">
+            <div class="box-R">
+              <h3>Ready Queue</h3>
             </div>
             <table>
-                <thead>
-                    <tr>
-                        <th>Process name</th>
-                        <th>Arrival Time</th>
-                        <th>Burst Time</th>
-                        <th>Waitting Time</th>
-                        <th>Status Process</th>
-                    </tr>
-                </thead>
-                <tbody id="addjob">
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>     
-            </table> 
-            </div> 
-            <div class="lower-box">
-            <div class="tt-a">
-                <div class="box-R">
-                    <h3>Ready Queue</h3>
-                </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Process name</th>
-                            <th>Arrival Time</th>
-                            <th>Burst Time</th>
-                            <th>Waitting Time</th>
-                        </tr>
-                    </thead>
-                    <tbody id="readyQueueBody">
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table> 
-            </div>  
-            <div class="tt-b">
-                <div class="box-Rr">
-                    <h3>I/O Queue</h3>
-                    <div class="btn">
-                        <button type="button" class="btn-aa" onclick="addIo()">Add</button>
-                        <button type="button" class="btn-b" onclick="closeIo()">Close</button>
-                    </div>
-                </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Process name</th>
-                            <th>Running Time</th>
-                            <th>Respond Time</th>
-                            <th>Status Process</th>  
-                        </tr>
-                    </thead>
-                    <tbody id="iobody">
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                </table> 
-            </div>                       
+              <thead>
+                <tr>
+                  <th>Process name</th>
+                  <th>Arrival Time</th>
+                  <th>Burst Time</th>
+                  <th>Waitting Time</th>
+                </tr>
+              </thead>
+              <tbody id="readyQueueBody"></tbody>
+              <!-- ปิด tag tbody ให้ถูกต้อง -->
+            </table>
+          </div>
+          <div class="tt-b">
+            <div class="box-Rr">
+              <h3>I/O Device</h3>
+              <div class="btn">
+                <button
+                  type="button"
+                  class="btn-a"
+                  onclick="controller.addIO()"
+                >
+                  Add
+                </button>
+                <button
+                  type="button"
+                  class="btn-b"
+                  onclick="controller.closeIO()"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Process name</th>
+                  <th>Running Time</th>
+                  <th>Respond Time</th>
+                  <th>Status Process</th>
+                </tr>
+              </thead>
+              <tbody id="ioQueueBody"></tbody>
+            </table>
+          </div>
         </div>
+      </div>
     </div>
-            <div class="foot">
-                <div class="box-foot">
-                    <div class="box-foot-a">
-                        <div class="box-foot-b">
-                        <h3>Terminate</h3>
-                        </div>
-                    </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Process name</th>
-                                <th>Arrival Time</th>
-                                <th>Burst Time</th>
-                                <th>waitting Process</th>
-                                <th>Turnaround Process</th>
-                                <th>Status Process</th>
-                            </tr>
-                        </thead>
-                        <tbody id="terminateBody">
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                    </table> 
-                </div>
-                <div class="box-foot-right">
-                    <div class="box-foot-right-a">
-                        <div class="box-tex">
-                            <h3>Controller</h3>
-                        </div>
-                    </div>
-                    <h7 id="clockDisplay2">Clock: 0</h7><br>
-                    <h7 id="cpuProcessInfo">CPU Process : </h7><br>
-                    <h7 id="avgWaitingInfo">AVG Waitting : </h7><br>
-                    <h7 id="avgTurnaroundInfo">AVG Turnaround : </h7><br>
-                </div>
-    </body>
-    <script src="io.js"></script> 
-    <script src="pcb.js"></script>
-    <script src="script.js"></script>
-    
+    <div class="foot">
+      <div class="box-foot">
+        <div class="box-foot-a">
+          <div class="box-foot-b">
+            <h3>Terminate</h3>
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Process name</th>
+              <th>Arrival Time</th>
+              <th>Burst Time</th>
+              <th>Waitting Process</th>
+              <th>Turnaround Process</th>
+              <th>Status Process</th>
+            </tr>
+          </thead>
+          <tbody id="terminateBody"></tbody>
+        </table>
+      </div>
+      <div class="box-foot-right">
+        <div class="box-foot-right-a">
+          <div class="box-tex">
+            <h3>Controller</h3>
+          </div>
+        </div>
+        <div id="controllerTable">
+          <h7 id="clockDisplay">Clock: 0</h7><br />
+          <h7 id="cpuProcessDisplay">CPU Process: None</h7><br />
+          <h7 id="ioProcessDisplay">IO Process: None</h7><br />
+          <h7 id="avgWaittingDisplay">AVG Waitting: 0</h7><br />
+          <h7 id="avgTurnaroundDisplay">AVG Turnaround: 0</h7><br />
+      </div>
+      
+      </div>
+    </div>
+  </body>
+  <script src="./model.js"></script>
+  <script src="./controller.js"></script>
+  <script>
+    const controller = new Controller();
+    controller.clock_count();
+  </script>
 </html>
