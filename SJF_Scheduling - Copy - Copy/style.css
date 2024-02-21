@@ -1,0 +1,217 @@
+body{
+    background-color: #000000;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.left{
+    display: flex;
+    justify-content: space-between;
+    column-gap: 3px;
+}
+.tt {
+    background-color: #f3f2f2;
+    height: 630px;
+    width: 70%;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 15px;
+    overflow-y: auto;
+}
+
+.top{
+    display: flex;
+    justify-content: space-between;
+    border-radius: 5px;
+    font-size: 25px;
+    background-color: #f3f2f2;
+    align-items: center;
+    margin: 10px;
+    padding: 25px;
+}
+.box-a {
+    display: flex;
+    border: 2px dashed #52899e; 
+    padding: 10px; 
+    margin: 10px auto; 
+    width: 90%;
+    border-radius: 5px; 
+    background-color: #b6e4ff; 
+    align-items: center;
+    justify-content: center;
+}
+.box-aa{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+button{
+    border: 1px solid black;
+}
+.btn-a {
+    background-color: #28a745;
+    border-radius: 15px;
+    padding: 7px;
+    /* color: white; */
+}
+.btn-b {
+    background-color: #dc3545;
+    border-radius: 15px;
+    padding: 7px;
+    /* color: white; */
+}
+.btn-c {
+    background-color: #ffc107;
+    border-radius: 15px;
+    padding: 7px;
+    /* color: white; */
+}
+.btn-a:hover {
+    transform: translateY(-7px);
+    box-shadow: 0px 15px 20px rgb(52, 54, 197);
+    color: #0a0a0a; 
+    padding: 10px 10px; 
+    text-decoration: none; 
+    display: inline-block; 
+    border-radius: 15px;
+}
+.btn-b:hover{
+    transform: translateY(-7px);
+    box-shadow: 0px 15px 20px rgb(52, 54, 197);
+    color: #0a0a0a; 
+    padding: 10px 10px; 
+    text-decoration: none; 
+    display: inline-block; 
+    border-radius: 15px;
+}
+.btn-c:hover{
+    transform: translateY(-7px);
+    box-shadow: 0px 15px 20px rgb(52, 54, 197);
+    color: #0a0a0a; 
+    padding: 10px 10px; 
+    text-decoration: none; 
+    display: inline-block; 
+    border-radius: 15px; 
+}
+
+table {
+    width: 90%;
+    border-collapse: collapse;
+    margin: 10px auto;
+    
+}
+th {
+    background-color: #b6e4ff;
+}
+th, td {
+    text-align: center;
+    text-align: left;
+    padding: 5px;
+    margin: 3px;
+    border: 1px solid #000000;
+}
+.tt-a{
+    align-items: center;
+    overflow-y: auto;
+    height: 300px;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 15px;
+    width: 90%;
+    background-color: #f3f2f2
+}
+.box-R{
+    width: 88%;
+    margin: 10px auto;
+    padding: 10px;
+    border: 2px dashed #52899e;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #b6e4ff;
+}
+
+.tt-b{
+    align-items: center;
+    overflow-y: auto;
+    height: 300px;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 15px;
+    width: 90%;
+    background-color: #f3f2f2
+}
+.box-Rr{
+    width: 88%;
+    margin: 10px auto;
+    padding: 10px;
+    border: 2px dashed #52899e;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #b6e4ff;
+}
+.box-foot{
+    background-color: #f3f2f2;
+    height: 250px;
+    width: 150%;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 15px;
+    overflow-y: auto ;
+}
+.box-foot-a{
+    width: 90%;
+    display: flex;
+    border: 2px dashed #52899e; 
+    padding: 10px; 
+    margin: 10px auto; 
+    border-radius: 5px; 
+    background-color: #b6e4ff; 
+    align-items: center;
+}
+.box-foot-b{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.foot{
+    display: flex;
+    justify-content: space-between;
+    column-gap: 3px;
+}
+.box-foot-right{ 
+    background-color: #f3f2f2;
+    height: 250px;
+    width: 65%;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 15px;
+}
+.box-foot-right-a {
+    display: flex;
+    border: 2px dashed #52899e; 
+    padding: 10px; 
+    margin: 10px ; 
+    border-radius: 5px; 
+    background-color: #b6e4ff; 
+    align-items: center;
+    justify-content: center;
+}
+.h7 {
+    margin-top: 50px;
+}
+
+/* process */
+.new { background-color: white; }
+.ready { background-color: yellow; }
+.running { background-color: limegreen; }
+.waiting { background-color: orange; }
+.terminate { background-color: red; }
+
+/* iodevie */
+.iorunning { background-color: limegreen; }
+.iowaiting { background-color: orange; }
+.ioterminate { background-color: red; }
