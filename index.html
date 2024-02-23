@@ -4,155 +4,124 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/img/1.jpg" />
-    <title>Os: SJF</title>
+    <title>SJF</title>
   </head>
-
   <body>
-    <div class="top">
-      <p style="font-size: 30px; font-weight: bold">
-        SJF Non-preemtive Scheduling
-      </p>
-      <ul id="clockDisplayList">
-        Clock: 0
-      </ul>
+    <div class="header">
+      <div class="os-name">SJF non-preemptive</div>
     </div>
-    <div class="head-a">
-      <div class="left">
-        <div class="tt">
-          <div class="box-a">
-            <div class="box-aa">
-              <h3>PCB</h3>
-              <div class="btn">
-                <button
-                  type="button"
-                  class="btn-a"
-                  onclick="controller.addProcess()"
-                >
-                  Add process
-                </button>
-                <button
-                  type="button"
-                  class="btn-b"
-                  onclick="controller.closeProcess()"
-                >
-                  Terminate
-                </button>
-                <button type="button" class="btn-c" onclick="reset()">
-                  Reset
-                </button>
-              </div>
-            </div>
+    <div class="process">
+      <div class="p">
+        <div class="p-head">
+          <div style="font-size: 20px; font-weight: bold">Process</div>
+          <div class="btn">
+            <button class="btn-add" onclick="controller.addProcess()">Add Process</button>
+            <button class="btn-close" onclick="controller.closeProcess()">Terminate</button>
+            <button class="btn-reset" onclick="controller.resetPage()">Reset</button>
           </div>
+        </div>
+        <div class="p-body">
           <table>
-            <thead>
-              <tr>
-                <th>Process name</th>
-                <th>Arrival Time</th>
-                <th>Burst Time</th>
-                <th>Waitting Time</th>
-                <th>Status Process</th>
-              </tr>
-            </thead>
+            <tr>
+              <th>Process Name</th>
+              <th>Arrival Time</th>
+              <th>Brust Time</th>
+              <th>Waiting Time</th>
+              <th>Memory</th>
+              <th>Status Process</th>
+            </tr>
             <tbody id="addjob"></tbody>
-            <!-- ปิด tag tbody ให้ถูกต้อง -->
           </table>
         </div>
-        <div class="lower-box">
-          <div class="tt-a">
-            <div class="box-R">
-              <h3>Ready Queue</h3>
-            </div>
-            <table>
-              <thead>
-                <tr>
-                  <th>Process name</th>
-                  <th>Arrival Time</th>
-                  <th>Burst Time</th>
-                  <th>Waitting Time</th>
-                </tr>
-              </thead>
-              <tbody id="readyQueueBody"></tbody>
-              <!-- ปิด tag tbody ให้ถูกต้อง -->
-            </table>
+      </div>
+      <div class="io">
+        <div class="io-head">
+          <div style="font-size: 20px; font-weight: bold">I/O Device</div>
+          <div class="btn">
+            <button class="btn-add" onclick="controller.addIO()">Add I/O</button>
+            <button class="btn-close" onclick="controller.closeIO()">Close I/O</button>
           </div>
-          <div class="tt-b">
-            <div class="box-Rr">
-              <h3>I/O Device</h3>
-              <div class="btn">
-                <button
-                  type="button"
-                  class="btn-a"
-                  onclick="controller.addIO()"
-                >
-                  Add
-                </button>
-                <button
-                  type="button"
-                  class="btn-b"
-                  onclick="controller.closeIO()"
-                >
-                  Close
-                </button>
-              </div>
-            </div>
-            <table>
-              <thead>
-                <tr>
-                  <th>Process name</th>
-                  <th>Running Time</th>
-                  <th>Respond Time</th>
-                  <th>Status Process</th>
-                </tr>
-              </thead>
-              <tbody id="ioQueueBody"></tbody>
-            </table>
-          </div>
+        </div>
+        <div class="io-body">
+          <table>
+            <tr>
+              <th>Process Name</th>
+              <th>Running Time</th>
+              <th>Respond Time</th>
+              <th>Status I/O</th>
+            </tr>
+            <tbody id="ioDeviceBody"></tbody>
+          </table>
         </div>
       </div>
     </div>
-    <div class="foot">
-      <div class="box-foot">
-        <div class="box-foot-a">
-          <div class="box-foot-b">
-            <h3>Terminate</h3>
-          </div>
-        </div>
-        <table>
-          <thead>
+    <div class="queue">
+      <div class="p-queue">
+        <div class="p-qhead">Ready Queue</div>
+        <div class="p-qbody">
+          <table>
             <tr>
-              <th>Process name</th>
+              <th>Process Name</th>
               <th>Arrival Time</th>
-              <th>Burst Time</th>
-              <th>Waitting Process</th>
-              <th>Turnaround Process</th>
+              <th>Brust Time</th>
+              <th>Waiting Time</th>
               <th>Status Process</th>
             </tr>
-          </thead>
+            <tbody id="readyQueueBody"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="io-queue">
+        <div class="p-qhead">I/O Queue</div>
+        <div class="p-qbody">
+          <table>
+            <tr>
+              <th>Process Name</th>
+              <th>Running Time</th>
+              <th>Respond Time</th>
+              <th>Status I/O</th>
+            </tr>
+            <tbody id="ioQueueBody"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="controller">
+        <div class="p-qhead">Controller</div>
+        <div class="p-controller">
+          <p id="clockDisplay">Clock: 0</p>
+          <!-- <ul id="clockDisplay">Clock: 0</ul> -->
+          <p id="cpuProcessDisplay">CPU Process: None</p>
+          <p id="ioProcessDisplay">I/O Process: None</p>
+          <p id="memoryDisplay">CPU Memory: 0 %</p>
+          <p id="avgWaittingDisplay">AVG Waiting Time: 0.00</p>
+          <p id="avgTurnaroundDisplay">AVG Turnarond Time: 0.00</p>
+        </div>
+      </div>
+    </div>
+    <div class="t-terminate">
+      <div class="t-head">Terminate</div>
+      <div class="t-body">
+        <table>
+          <tr>
+            <th>Process name</th>
+            <th>Arrival Time</th>
+            <th>Burst Time</th>
+            <th>Waitting Process</th>
+            <th>Turnaround Process</th>
+            <th>Running Time</th>
+            <th>Respond Time</th>
+            <th>Status Process</th>
+          </tr>
           <tbody id="terminateBody"></tbody>
         </table>
       </div>
-      <div class="box-foot-right">
-        <div class="box-foot-right-a">
-          <div class="box-tex">
-            <h3>Controller</h3>
-          </div>
-        </div>
-        <div id="controllerTable">
-          <h7 id="clockDisplay">Clock: 0</h7><br />
-          <h7 id="cpuProcessDisplay">CPU Process: None</h7><br />
-          <h7 id="ioProcessDisplay">IO Process: None</h7><br />
-          <h7 id="avgWaittingDisplay">AVG Waitting: 0</h7><br />
-          <h7 id="avgTurnaroundDisplay">AVG Turnaround: 0</h7><br />
-      </div>
-      
-      </div>
     </div>
+    <script src="./controller.js"></script>
+    <script src="./model.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+      const controller = new Controller();
+      controller.clock_count();
+    </script>
   </body>
-  <script src="./model.js"></script>
-  <script src="./controller.js"></script>
-  <script>
-    const controller = new Controller();
-    controller.clock_count();
-  </script>
 </html>

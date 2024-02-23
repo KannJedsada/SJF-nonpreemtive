@@ -5,6 +5,7 @@ class Process {
     pName,
     pAtime,
     pBtime,
+    pMemory,
     pWtime = 0,
     pStatus,
     pTtime = 0,
@@ -26,10 +27,12 @@ class Process {
     this.pName = pName;
     this.pAtime = pAtime;
     this.pBtime = pBtime;
-    (this.pInitialBtime = pBtime), (this.pWtime = pWtime);
+    this.pInitialBtime = pBtime;
+    this.pWtime = pWtime;
     this.pTtime = pTtime;
     this.respondTime = respondTime;
     this.runningTime = runningTime;
     this.ioStatus = Process.validIoStatus[0];
+    this.pMemory = pMemory;
   }
 }
