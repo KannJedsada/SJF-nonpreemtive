@@ -89,17 +89,18 @@ class Controller {
     const tbody = document.getElementById("ioDeviceBody"); // Correct the typo here
     tbody.innerHTML = "";
     this.ioQueue.forEach((process) => {
-      const row = document.createElement("tr"); // Correct the typo here
-      row.innerHTML = `
-            <td>${process.pName}</td>
-            <td>${process.runningTime}</td>
-            <td>${process.respondTime}</td>
-            <td class="io${process.ioStatus}">${process.ioStatus}</td>
-        `;
-      tbody.appendChild(row); // Append the row to the table body
+      const row = document.createElement("tr");
+      if (process.ioStatus == "running") {
+        row.innerHTML = `
+        <td>${process.pName}</td>
+        <td>${process.runningTime}</td>
+        <td>${process.respondTime}</td>
+        <td class="io${process.ioStatus}">${process.ioStatus}</td>
+    `;
+        tbody.appendChild(row); // Append the row to the table body
+      }
     });
   }
-
   ioQueueTable() {
     const tbody = document.getElementById("ioQueueBody"); // Correct the typo here
     tbody.innerHTML = "";
@@ -122,9 +123,9 @@ class Controller {
     // Update AVG Waitting display
     const avgWaittingDisplay = document.getElementById("avgWaittingDisplay");
     if (this.avgWtime === undefined) {
-      avgWaittingDisplay.innerText = "AVG Waitting: " + "0.00";
+      avgWaittingDisplay.innerText = "AVG Waiting Time: " + "0.00";
     } else {
-      avgWaittingDisplay.innerText = "AVG Waitting: " + this.avgWtime;
+      avgWaittingDisplay.innerText = "AVG Waiting Time: " + this.avgWtime;
     }
 
     // Update AVG Turnaround display
@@ -132,16 +133,15 @@ class Controller {
       "avgTurnaroundDisplay"
     );
     if (this.avgTtime === undefined) {
-      avgTurnaroundDisplay.innerText = "AVG Turnaround: " + "0.00";
+      avgTurnaroundDisplay.innerText = "AVG Turnaround Time: " + "0.00";
     } else {
-      avgTurnaroundDisplay.innerText = "AVG Turnaround: " + this.avgTtime;
+      avgTurnaroundDisplay.innerText = "AVG Turnaround Time: " + this.avgTtime;
     }
 
     const useMemoryDisplay = document.getElementById("memoryDisplay");
     useMemoryDisplay.innerText = "Memory: " + this.useMemory + " %";
     // }
   }
-
   processRunning() {
     // Update CPU Process display
     const cpuProcessDisplay = document.getElementById("cpuProcessDisplay");
@@ -161,18 +161,17 @@ class Controller {
   }
 
   addProcess() {
-    console.log("test");
     let sumMemory = 0;
     // คำนวณผลรวมของหน่วยความจำทั้งหมดที่กำลังใช้งานอยู่โดยปัจจุบัน
     for (let i = 0; i < this.processList.length; i++) {
       sumMemory += this.processList[i].pMemory;
     }
     let pName =
-      "Process" + (this.processList.length + this.terminateList.length + 1);
+      "Process " + (this.processList.length + this.terminateList.length + 1);
     let pAtime = this.clock;
     let pBtime = Math.floor(Math.random() * 10 + 4);
-    // let pMemory = Math.floor(Math.random() * 10 + 20);
-    let pMemory = 30;
+    let pMemory = Math.floor(Math.random() * 10 + 20);
+    // let pMemory = 30;
     let newProcess = new Process(pName, pAtime, pBtime, pMemory);
     let prevProcess = this.processList[this.processList.length - 1];
 
@@ -183,15 +182,15 @@ class Controller {
         showConfirmButton: false,
         timer: 1000,
       });
-      console.log("Memory full");
       return;
     }
 
     this.processList.push(newProcess);
+    // console.log(this.processList);
     this.updatePcb();
     this.updateReadyqueue();
     this.processMemory();
-    console.log(this.useMemory);
+    // console.log(this.useMemory);
     // เช็คว่ามีโปรเซสในระบบหรือไม่
     if (
       this.processList.length === 1 ||
@@ -221,6 +220,15 @@ class Controller {
   }
 
   closeProcess() {
+    if (this.processList.length <= 0) {
+      Swal.fire({
+        icon: "error",
+        title: "No Process",
+        showConfirmButton: false,
+        timer: 1000,
+      });
+      return;
+    }
     let runningProcess = this.processList.find(
       (process) => process.pStatus === "running"
     );
@@ -254,7 +262,7 @@ class Controller {
     } else {
       Swal.fire({
         icon: "error",
-        title: "No Process",
+        title: "No Process Running",
         showConfirmButton: false,
         timer: 1000,
       });
@@ -299,7 +307,7 @@ class Controller {
     } else {
       Swal.fire({
         icon: "error",
-        title: "No process runnig",
+        title: "No process running",
         showConfirmButton: false,
         timer: 1000,
       });
@@ -435,16 +443,16 @@ class Controller {
   }
 
   resetPage() {
+    console.log("test")
     Swal.fire({
       title: "Are you Reset Page?",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, Reset!",
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Reset",
     }).then((result) => {
       if (result.isConfirmed) {
-        // ยืนยันการรีเซ็ต และทำการรีโหลดหน้าเว็บ
         window.location.reload();
       }
     });

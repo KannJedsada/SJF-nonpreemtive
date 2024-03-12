@@ -36,7 +36,7 @@ body {
 }
 
 .p-body {
-  margin: 1rem 5%;
+  margin: 0.5rem 5%;
 }
 
 /* Css I/O Table */
@@ -54,7 +54,7 @@ body {
 }
 
 .io-body {
-  margin: 1rem 5%;
+  margin: 0.5rem 5%;
 }
 
 /* Queue */
@@ -93,6 +93,7 @@ body {
   margin: 0.5rem 5%;
 }
 .p-controller {
+  font-size: 13px;
   margin-left: 10px;
 }
 .p-controller p {
@@ -109,7 +110,7 @@ body {
 
 .t-head {
   padding: 10px;
-  font-size: 15px;
+  /* font-size: 10px; */
   font-weight: bold;
   text-align: center;
   background-color: darkgray;
@@ -121,6 +122,7 @@ body {
 
 /* Table */
 table {
+  font-size: 12px;
   text-align: center;
   width: 100%;
 }
@@ -130,7 +132,10 @@ th,
 td {
   border: 1px solid black;
   border-collapse: collapse;
-  padding: 5px;
+  padding: 3px;
+}
+th {
+    background-color: wheat;
 }
 
 /* Button */
@@ -185,9 +190,6 @@ td {
 }
 
 /* process */
-.new {
-  background-color: white;
-}
 .ready {
   background-color: yellow;
 }
