@@ -3,6 +3,7 @@
 ## Overview
 
 SJF (Shortest Job First) Non-Preemptive Scheduling is a CPU scheduling algorithm that selects the process with the shortest burst time to execute next. This algorithm is a mini-project for the Operating System course, designed to help understand its working principles.
+
 Url: https://kannjedsada.github.io/SJF-nonpreemtive/
 
 ## How It Works
